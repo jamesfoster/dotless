@@ -4,6 +4,7 @@ namespace dotless.Core.Parser.Tree
     using Infrastructure;
     using Infrastructure.Nodes;
     using Utils;
+    using Plugins;
 
     public class Call : Node
     {
@@ -37,6 +38,11 @@ namespace dotless.Core.Parser.Tree
             }
 
             return new TextNode(Name + "(" + Arguments.Select(a => a.Evaluate(env).ToCSS(env)).JoinStrings(", ") + ")");
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Arguments);
         }
     }
 }

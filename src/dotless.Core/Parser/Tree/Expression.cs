@@ -4,6 +4,7 @@
     using Infrastructure;
     using Infrastructure.Nodes;
     using Utils;
+    using Plugins;
 
     public class Expression : Node
     {
@@ -20,6 +21,11 @@
                 return new Expression(new NodeList(Value.Select(e => e.Evaluate(env))));
 
             return Value[0].Evaluate(env);
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Value);
         }
 
         public override string ToCSS(Env env)

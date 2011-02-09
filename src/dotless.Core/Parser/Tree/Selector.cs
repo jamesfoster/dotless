@@ -4,6 +4,7 @@
     using Infrastructure;
     using Infrastructure.Nodes;
     using Utils;
+    using Plugins;
 
     public class Selector : Node
     {
@@ -31,6 +32,11 @@
                 return _css;
 
             return _css = Elements.Select(e => e.ToCSS(env)).JoinStrings("");
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Elements);
         }
 
         public override string ToString()

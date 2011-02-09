@@ -1,10 +1,12 @@
-﻿namespace dotless.Core.Parser.Tree
+﻿
+namespace dotless.Core.Parser.Tree
 {
     using System.Collections.Generic;
     using System.Linq;
     using Infrastructure;
     using Infrastructure.Nodes;
     using Utils;
+    using Plugins;
 
     public class Value : Node
     {
@@ -35,6 +37,11 @@
                 return Values[0].Evaluate(env);
 
             return new Value(Values.Select(n => n.Evaluate(env)), Important);
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Values);
         }
     }
 }

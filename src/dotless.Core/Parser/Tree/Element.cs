@@ -2,6 +2,7 @@
 {
     using Infrastructure;
     using Infrastructure.Nodes;
+    using Plugins;
 
     public class Element : Node
     {
@@ -17,6 +18,11 @@
         public override string ToCSS(Env env)
         {
             return Combinator.ToCSS(env) + Value;
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Combinator);
         }
     }
 }

@@ -4,6 +4,7 @@ namespace dotless.Core.Parser.Tree
 {
     using Infrastructure;
     using Infrastructure.Nodes;
+    using Plugins;
 
     public class Rule : Node
     {
@@ -32,6 +33,11 @@ namespace dotless.Core.Parser.Tree
             env.Rule = null;
             
             return rule;
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Value);
         }
 
         public override string ToCSS(Env env)

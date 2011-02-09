@@ -6,6 +6,7 @@ namespace dotless.Core.Parser.Tree
     using Infrastructure;
     using Infrastructure.Nodes;
     using Utils;
+    using Plugins;
 
     public class Ruleset : Node
     {
@@ -92,6 +93,13 @@ namespace dotless.Core.Parser.Tree
             EvaluateRules(env);
 
             return this;
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Selectors);
+
+            Rules.ForEach(visitor.Visit);
         }
 
         public List<Node> EvaluateRules(Env env)

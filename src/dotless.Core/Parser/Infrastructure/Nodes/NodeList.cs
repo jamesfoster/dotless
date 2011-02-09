@@ -41,6 +41,11 @@
             Inner = new List<TNode>(nodes);
         }
 
+        public override void Accept(Plugins.IVisitor visitor)
+        {
+            Inner.ForEach(visitor.Visit);
+        }
+
         public void AddRange(IEnumerable<TNode> nodes)
         {
             Inner.AddRange(nodes);

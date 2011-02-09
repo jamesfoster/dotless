@@ -4,6 +4,7 @@
     using Exceptions;
     using Infrastructure;
     using Infrastructure.Nodes;
+    using Plugins;
 
     public class Operation : Node
     {
@@ -73,6 +74,12 @@
                 default:
                     throw new InvalidOperationException("Unknown operator");
             }
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(First);
+            visitor.Visit(Second);
         }
     }
 }

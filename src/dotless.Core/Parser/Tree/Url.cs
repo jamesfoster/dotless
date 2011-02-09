@@ -6,6 +6,7 @@
     using Infrastructure;
     using Infrastructure.Nodes;
     using Utils;
+    using Plugins;
 
     public class Url : Node
     {
@@ -29,6 +30,11 @@
         public override string ToCSS(Env env)
         {
             return "url(" + Value.ToCSS(env) + ")";
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(Value);
         }
     }
 }
